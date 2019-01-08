@@ -1,0 +1,8 @@
+#!/usr/bin/env sh
+
+# Run from json-relay
+
+stack image container
+docker save json-relay > /tmp/json-relay.tar
+scp ./deploy/docker-compose.yaml root@relay.ianjeffries.net:/root
+scp /tmp/json-relay.tar root@relay.ianjeffries.net:/root

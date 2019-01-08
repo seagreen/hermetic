@@ -1,0 +1,5 @@
+#!/usr/bin/env sh
+
+SLOC=./misc/sloc.txt
+cloc --quiet ./src > $SLOC
+tail -n +3 $SLOC | sponge $SLOC

@@ -1,0 +1,114 @@
+cabal-version: 1.12
+
+-- This file has been generated from package.yaml by hpack version 0.31.1.
+--
+-- see: https://github.com/sol/hpack
+--
+-- hash: e56319437ef6fb6a1f1a53c6307411ee6f342410e6ad35c0e2ce0b814972e6ca
+
+name:           json-relay
+version:        0.0.0
+build-type:     Simple
+
+library
+  exposed-modules:
+      JsonRelay.Client
+      JsonRelay.Server
+      JsonRelay.Shared
+  other-modules:
+      Paths_json_relay
+  hs-source-dirs:
+      src
+  default-extensions: NoImplicitPrelude DataKinds DeriveAnyClass DeriveFunctor DeriveGeneric DerivingStrategies ExistentialQuantification FlexibleContexts FlexibleInstances FunctionalDependencies GADTs GeneralizedNewtypeDeriving InstanceSigs LambdaCase MultiParamTypeClasses NamedFieldPuns OverloadedStrings RankNTypes ScopedTypeVariables TypeFamilies TypeOperators
+  ghc-options: -Wall
+  build-depends:
+      aeson
+    , async
+    , base
+    , bytestring
+    , containers
+    , directory
+    , filepath
+    , hashable
+    , lens
+    , monad-loops
+    , mtl
+    , network
+    , random
+    , safe-exceptions
+    , stm
+    , streaming
+    , text
+    , time
+    , transformers
+    , unordered-containers
+  default-language: Haskell2010
+
+executable json-relay
+  main-is: Main.hs
+  other-modules:
+      Paths_json_relay
+  hs-source-dirs:
+      ./
+  default-extensions: NoImplicitPrelude DataKinds DeriveAnyClass DeriveFunctor DeriveGeneric DerivingStrategies ExistentialQuantification FlexibleContexts FlexibleInstances FunctionalDependencies GADTs GeneralizedNewtypeDeriving InstanceSigs LambdaCase MultiParamTypeClasses NamedFieldPuns OverloadedStrings RankNTypes ScopedTypeVariables TypeFamilies TypeOperators
+  ghc-options: -Wall -threaded -rtsopts -with-rtsopts=-N
+  build-depends:
+      aeson
+    , async
+    , base
+    , bytestring
+    , containers
+    , directory
+    , filepath
+    , gitrev
+    , hashable
+    , json-relay
+    , lens
+    , monad-loops
+    , mtl
+    , network
+    , optparse-applicative
+    , random
+    , safe-exceptions
+    , stm
+    , streaming
+    , text
+    , time
+    , transformers
+    , unordered-containers
+  default-language: Haskell2010
+
+test-suite spec
+  type: exitcode-stdio-1.0
+  main-is: Spec.hs
+  other-modules:
+      JsonRelay.ServerSpec
+      Paths_json_relay
+  hs-source-dirs:
+      test
+  default-extensions: NoImplicitPrelude DataKinds DeriveAnyClass DeriveFunctor DeriveGeneric DerivingStrategies ExistentialQuantification FlexibleContexts FlexibleInstances FunctionalDependencies GADTs GeneralizedNewtypeDeriving InstanceSigs LambdaCase MultiParamTypeClasses NamedFieldPuns OverloadedStrings RankNTypes ScopedTypeVariables TypeFamilies TypeOperators
+  ghc-options: -Wall
+  build-depends:
+      aeson
+    , async
+    , base
+    , bytestring
+    , containers
+    , directory
+    , filepath
+    , hashable
+    , hspec
+    , json-relay
+    , lens
+    , monad-loops
+    , mtl
+    , network
+    , random
+    , safe-exceptions
+    , stm
+    , streaming
+    , text
+    , time
+    , transformers
+    , unordered-containers
+  default-language: Haskell2010

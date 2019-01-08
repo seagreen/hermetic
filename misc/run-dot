@@ -1,0 +1,3 @@
+#!/usr/bin/env sh
+
+dot -Tsvg ./misc/core-modules.dot -o ./misc/core-modules.svg

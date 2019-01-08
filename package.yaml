@@ -1,0 +1,87 @@
+name: hermetic
+license: AllRightsReserved
+version: 0.0
+default-extensions:
+
+  # Notable
+
+  - NoImplicitPrelude # Using our own Game.Prelude module instead
+                      # (which is based on Prelude).
+  - RecordWildCards # Despite my dislike of this extension, using it to reduce
+                    # the noise of picking out Model and Base fields.
+  - StrictData
+
+  # Other
+
+  - DataKinds
+  - DeriveAnyClass
+  - DeriveFunctor
+  - DeriveGeneric
+  - DerivingStrategies
+  - ExistentialQuantification
+  - FlexibleContexts
+  - FlexibleInstances
+  - FunctionalDependencies
+  - GADTs
+  - GeneralizedNewtypeDeriving
+  - InstanceSigs
+  - LambdaCase
+  - MultiParamTypeClasses
+  - NamedFieldPuns
+  - OverloadedStrings
+  - PackageImports
+  - RankNTypes
+  - ScopedTypeVariables
+  - TypeFamilies
+  - TypeOperators
+
+ghc-options: -Wall
+dependencies:
+
+  # Notable
+
+  - gloss
+  - json-relay # Located at ./json-relay
+
+  # Other
+
+  - aeson
+  - aeson-pretty
+  - base
+  - bytestring
+  - containers
+  - directory
+  - filepath
+  - gitrev
+  - hashable
+  - lens
+  - MonadRandom
+  - mtl
+  - optparse-applicative
+  - safe
+  - safe-exceptions
+  - split
+  - stm
+  - template-haskell
+  - text
+  - time
+  - transformers
+  - unordered-containers
+
+library:
+  source-dirs: src
+executables:
+  hermetic:
+    source-dirs: ./misc
+    main: Main.hs
+    ghc-options: -threaded -rtsopts
+    dependencies:
+      - hermetic
+tests:
+  spec:
+    source-dirs: test
+    main: Spec.hs
+    dependencies:
+      - hermetic
+      - hspec
+      - QuickCheck

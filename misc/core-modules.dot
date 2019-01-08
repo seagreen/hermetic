@@ -1,0 +1,24 @@
+digraph {
+
+  subgraph cluster_0 {
+    label="Game rules"
+    color=blue
+    "Game.Model" -> "Game.Update"
+  }
+
+  subgraph cluster_1 {
+    label="Gloss UI"
+    color=red
+
+    { rank=n; View } // Show View to the left of Update
+
+    "Game.Model" -> Model
+    "Game.Update" -> Layout
+    Model -> Layout
+    Layout -> Update
+    Layout -> View
+    Update -> App
+    View -> App
+    App -> Main
+  }
+}

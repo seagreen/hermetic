@@ -1,0 +1,149 @@
+cabal-version: 1.12
+
+-- This file has been generated from package.yaml by hpack version 0.31.1.
+--
+-- see: https://github.com/sol/hpack
+--
+-- hash: 9edf0b78a76c0c36540e94dd225baeb616b71e6d2d85fd9f048b7a0e71b0f978
+
+name:           hermetic
+version:        0.0
+license:        AllRightsReserved
+build-type:     Simple
+
+library
+  exposed-modules:
+      App
+      Game
+      Game.Model
+      Game.Outcome
+      Game.Prelude
+      Game.Update
+      Game.Update.Bombard
+      Game.Update.Build
+      Game.Update.Combat
+      Game.Update.Diplomacy
+      Game.Update.Disease
+      Game.Update.Shared
+      Game.Update.Travel
+      Layout
+      Lib.Gloss
+      Main
+      Model
+      Scenario.Polar
+      Scenario.Tannen
+      Update
+      View
+      View.Board
+      View.Hud
+      View.Ship
+  other-modules:
+      Paths_hermetic
+  hs-source-dirs:
+      src
+  default-extensions: NoImplicitPrelude RecordWildCards StrictData DataKinds DeriveAnyClass DeriveFunctor DeriveGeneric DerivingStrategies ExistentialQuantification FlexibleContexts FlexibleInstances FunctionalDependencies GADTs GeneralizedNewtypeDeriving InstanceSigs LambdaCase MultiParamTypeClasses NamedFieldPuns OverloadedStrings PackageImports RankNTypes ScopedTypeVariables TypeFamilies TypeOperators
+  ghc-options: -Wall
+  build-depends:
+      MonadRandom
+    , aeson
+    , aeson-pretty
+    , base
+    , bytestring
+    , containers
+    , directory
+    , filepath
+    , gitrev
+    , gloss
+    , hashable
+    , json-relay
+    , lens
+    , mtl
+    , optparse-applicative
+    , safe
+    , safe-exceptions
+    , split
+    , stm
+    , template-haskell
+    , text
+    , time
+    , transformers
+    , unordered-containers
+  default-language: Haskell2010
+
+executable hermetic
+  main-is: Main.hs
+  other-modules:
+      Paths_hermetic
+  hs-source-dirs:
+      ./misc
+  default-extensions: NoImplicitPrelude RecordWildCards StrictData DataKinds DeriveAnyClass DeriveFunctor DeriveGeneric DerivingStrategies ExistentialQuantification FlexibleContexts FlexibleInstances FunctionalDependencies GADTs GeneralizedNewtypeDeriving InstanceSigs LambdaCase MultiParamTypeClasses NamedFieldPuns OverloadedStrings PackageImports RankNTypes ScopedTypeVariables TypeFamilies TypeOperators
+  ghc-options: -Wall -threaded -rtsopts
+  build-depends:
+      MonadRandom
+    , aeson
+    , aeson-pretty
+    , base
+    , bytestring
+    , containers
+    , directory
+    , filepath
+    , gitrev
+    , gloss
+    , hashable
+    , hermetic
+    , json-relay
+    , lens
+    , mtl
+    , optparse-applicative
+    , safe
+    , safe-exceptions
+    , split
+    , stm
+    , template-haskell
+    , text
+    , time
+    , transformers
+    , unordered-containers
+  default-language: Haskell2010
+
+test-suite spec
+  type: exitcode-stdio-1.0
+  main-is: Spec.hs
+  other-modules:
+      Game.ModelSpec
+      LayoutSpec
+      Lib.MathSpec
+      Paths_hermetic
+  hs-source-dirs:
+      test
+  default-extensions: NoImplicitPrelude RecordWildCards StrictData DataKinds DeriveAnyClass DeriveFunctor DeriveGeneric DerivingStrategies ExistentialQuantification FlexibleContexts FlexibleInstances FunctionalDependencies GADTs GeneralizedNewtypeDeriving InstanceSigs LambdaCase MultiParamTypeClasses NamedFieldPuns OverloadedStrings PackageImports RankNTypes ScopedTypeVariables TypeFamilies TypeOperators
+  ghc-options: -Wall
+  build-depends:
+      MonadRandom
+    , QuickCheck
+    , aeson
+    , aeson-pretty
+    , base
+    , bytestring
+    , containers
+    , directory
+    , filepath
+    , gitrev
+    , gloss
+    , hashable
+    , hermetic
+    , hspec
+    , json-relay
+    , lens
+    , mtl
+    , optparse-applicative
+    , safe
+    , safe-exceptions
+    , split
+    , stm
+    , template-haskell
+    , text
+    , time
+    , transformers
+    , unordered-containers
+  default-language: Haskell2010

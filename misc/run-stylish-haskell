@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+
+# if you replace this with `find` make sure to exclude .stack-work:
+shopt -s globstar
+
+stylish-haskell --inplace ./src/**/*.hs
+stylish-haskell --inplace ./misc/**/*.hs
+stylish-haskell --inplace ./test/**/*.hs
+stylish-haskell --inplace ./json-relay/**/*.hs
