@@ -10,9 +10,7 @@ import Text.Read (readMaybe)
 
 -- | The core game state.
 data Model = Model
-  { modelPlayers :: Set Player
-    -- ^ Currently there will always be two players, but we may add more later.
-  , modelPlaces  :: HashMap PlaceId Place
+  { modelPlaces  :: HashMap PlaceId Place
   , modelShips   :: HashMap ShipId Ship
   , modelLog     :: Log
     -- ^ Records what combat occured this turn. Cleared at the start of each turn.
