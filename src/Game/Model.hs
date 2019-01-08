@@ -3,7 +3,6 @@
 -- | Types for the state of the game.
 module Game.Model where
 
-import qualified Data.Set as Set
 import qualified Data.Text as T
 import Game.Prelude
 import Text.Read (readMaybe)
@@ -26,12 +25,7 @@ data Model = Model
 init :: Gen -> Model
 init gen =
   Model
-    { modelPlayers =
-        Set.fromList
-          [ Player1
-          , Player2
-          ]
-    , modelPlaces = mempty
+    { modelPlaces = mempty
     , modelShips = mempty
     , modelLog = mempty
     , modelTurn = 1

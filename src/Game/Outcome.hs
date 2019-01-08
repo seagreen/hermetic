@@ -16,7 +16,7 @@ data Outcome
 
 outcome :: Model -> Outcome
 outcome Model{..} =
-  case mapMaybe hasBase (Set.toList modelPlayers) of
+  case mapMaybe hasBase (Set.toList enumerateAll :: [Player]) of
     [] ->
       AllDefeated
 
