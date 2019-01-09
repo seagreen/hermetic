@@ -1,3 +1,4 @@
+-- | Internal.
 module JsonRelay.Shared where
 
 import Data.Aeson
@@ -10,12 +11,15 @@ import Prelude
 import Streaming
 import qualified Streaming.Prelude as S
 
--- | An invalid UTF-8 byte, used to signal the end of a JSON message.
+-- | An invalid UTF-8 byte, used to signal the end of a 'Message'.
+--
+-- Since multiple 'Message's can be read on each call to 'NetworkBts.recvFrom',
+-- each 'Message' must be followed by an @endOfMessage@ to distinguish them.
 endOfMessage :: Word8
 endOfMessage =
   0xFF
 
--- | Comment from Network.Socket.ByteString:
+-- | Comment from @Network.Socket.ByteString@:
 --
 -- @
 -- Considering hardware and network realities, the maximum number of bytes to receive should be a small power of 2, e.g., 4096.

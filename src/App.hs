@@ -9,6 +9,7 @@ module App
   ( Config(..)
   , app
   , runGame
+  , runWithClient
   , RoomMsg(..)
   ) where
 

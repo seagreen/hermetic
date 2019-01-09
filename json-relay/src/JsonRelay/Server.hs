@@ -1,3 +1,14 @@
+-- | Internal (this is all executable code exposed for the curious).
+--
+-- Bounces JSON messages between clients.
+--
+-- Clients send 'Message's.
+--
+-- 'messageRoom' is read to find the room, then the 'messageBody' is sent
+-- to each other client subscribed to that room. So clients send
+-- @Message@s and receive 'Value's.
+--
+-- Clients are subscribed to the first room they send a message to.
 module JsonRelay.Server where
 
 import Control.Concurrent (forkFinally)
@@ -47,7 +58,7 @@ run (Config port) = do
   bracket
     (open addr)
     Socket.close
-    -- Watch out for `(forever (acceptClient chan))` -- loops forever.
+    -- Watch out for @(forever (acceptClient chan))@, which loops forever.
     (forever . acceptClient chan :: Socket -> IO void)
 
 resolve :: Natural -> IO AddrInfo
@@ -67,37 +78,47 @@ resolve port = do
         , addrSocketType = Stream
         }
 
--- | 'socket', 'bind' and 'listen'.
+-- | @socket@, @bind@ and @listen@.
 open :: AddrInfo -> IO Socket
 open addr = do
   sock <- Socket.socket (addrFamily addr) (addrSocketType addr) (addrProtocol addr)
   Socket.setSocketOption sock ReuseAddr 1
   Socket.bind sock (addrAddress addr)
-  -- If the prefork technique is not used,
-  -- set CloseOnExec for the security reasons.
+  -- From @network@:
+  --
+  -- @
+  -- If the prefork technique is not used, set CloseOnExec for the security reasons.
+  -- @
   Socket.setCloseOnExecIfNeeded (Socket.fdSocket sock)
   Socket.listen sock maxQueuedConnections
   pure sock
   where
-    -- ```
-    -- The second argument specifies the maximum number of queued connections and should be at least 1; the maximum value is system-dependent (usually 5).
-    -- ```
+    -- From `network`:
+    --
+    -- @
+    -- The second argument specifies the maximum number of queued connections
+    -- and should be at least 1; the maximum value is system-dependent (usually 5).
+    -- @
     maxQueuedConnections :: Int
     maxQueuedConnections =
       10
 
--- | `accept`, then receiving and sending on the new socket it creates.
+-- | @accept@
 acceptClient :: BroadcastChan -> Socket -> IO ()
 acceptClient chan sock = do
   (conn :: Socket, peer :: SockAddr) <- Socket.accept sock
   log $ "Connection from " <> T.pack (show peer)
   void $ forkFinally (handleClient peer chan conn) (\_ -> Socket.close conn)
 
--- ```
+-- | @recvFrom@ and @sendAll@.
+--
+-- From @network@:
+--
+-- @
 -- If multiple threads use one Socket concurrently, unexpected things would happen.
 -- There is one exception for multiple threads vs a single Socket:
 -- one thread reads data from a Socket only and the other thread writes data to the Socket only.
--- ```
+-- @
 handleClient :: SockAddr -> BroadcastChan -> Socket -> IO ()
 handleClient addr chan sock = do
   readingChannel <- atomically $ dupTChan (unBroadcastChan chan)

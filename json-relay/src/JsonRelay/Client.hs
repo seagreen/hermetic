@@ -1,6 +1,7 @@
 module JsonRelay.Client
   ( RoomName(..)
-  , module JsonRelay.Client
+  , Client(..)
+  , run
   ) where
 
 import Control.Concurrent
@@ -25,15 +26,19 @@ import qualified Streaming.Prelude as S
 data Client = Client
   { clientSend :: Value -> IO ()
   , clientReceive :: IO ByteString
-    -- ^ The ByteString will always be JSON.
+    -- ^ The @ByteString@ will always be JSON.
   }
 
 run
   :: (Text -> IO ())
-     -- ^ This module is meant to be used by library code
-     -- and so takes a logger (unlike 'JsonClient.Server').
+     -- ^ Logger.
+     --
+     -- Present since module is meant to be used as a library
+     -- (unlike "JsonRelay.Server").
   -> Text
+     -- ^ Host.
   -> Natural
+     -- ^ Port.
   -> RoomName
   -> (Client -> IO ())
   -> IO ()
@@ -46,23 +51,28 @@ resolve :: Text -> String -> IO AddrInfo
 resolve hostName serviceName = do
   getOneAddrInfo (Just hints) (Just (T.unpack hostName)) (Just serviceName)
   where
-    -- `showDefaultHints` on this gives:
+    -- @showDefaultHints@ on this gives:
     --
-    --     AddrInfo {addrFlags = [], addrFamily = AF_UNSPEC, addrSocketType = Stream, addrProtocol = 0,
-    --               addrAddress = <assumed to be undefined>, addrCanonName = <assumed to be undefined>}
-    --
+    -- @
+    -- AddrInfo {addrFlags = [], addrFamily = AF_UNSPEC, addrSocketType = Stream, addrProtocol = 0,
+    --           addrAddress = <assumed to be undefined>, addrCanonName = <assumed to be undefined>}
+    -- @
     hints :: AddrInfo
     hints =
       Socket.defaultHints { addrSocketType = Stream }
 
--- | 'socket' and 'connect'.
+-- Internal.
+--
+-- @socket@ and @connect@.
 open :: AddrInfo -> IO Socket
 open addr = do
   sock <- Socket.socket (addrFamily addr) (addrSocketType addr) (addrProtocol addr)
   Socket.connect sock (addrAddress addr)
   pure sock
 
--- | Sending and receiving.
+-- Internal.
+--
+-- @recvFrom@ and @sendAll@.
 withSocket :: (Text -> IO ()) -> RoomName -> (Client -> IO ()) -> Socket -> IO ()
 withSocket log room withClient sock = do
   chan <- newTChanIO
