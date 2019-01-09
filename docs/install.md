@@ -16,7 +16,7 @@ Play against a computer opponent that doesn't do anything besides end turn:
 
 If my server is up you can use it (replace `ROOM_NAME` with your own random string):
 ```
-$ hermetic --host relay.ianjeffries.net --room ROOM_NAME
+$ hermetic --room ROOM_NAME
 AddrInfo {addrFlags = [], addrFamily = AF_INET, addrSocketType = Stream, addrProtocol = 6, addrAddress = 178.128.66.50:3000, addrCanonName = Nothing}
 Sending message
 ```
@@ -35,4 +35,4 @@ stack install
 json-relay # Start the server
 ```
 
-Then proceed as in the previous section, replacing the argument to `--host` with your IP address.
+Then proceed as in the previous section, but adding `--host ADDRESS` and `--port PORT` to the `hermetic` commands.

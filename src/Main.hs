@@ -53,7 +53,7 @@ configParser =
             (  long "host"
             <> metavar "HOST"
             <> help "Server address to connect to"
-            <> value "localhost"
+            <> value "relay.ianjeffries.net"
             -- showDefaultWith instead of showDefault so we don't get quotes
             -- around the value:
             <> showDefaultWith T.unpack
