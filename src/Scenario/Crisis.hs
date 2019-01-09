@@ -1,4 +1,4 @@
-module Scenario.Polar where
+module Scenario.Crisis where
 
 import Control.Monad.Trans.State
 import qualified Data.Set as Set
@@ -14,6 +14,7 @@ fillBoard = do
 
   _ <- newPlace $ def (-200,-200) "Nyby"
   _ <- newPlace $ def (0,0) "Tervola" & placeSizeL .~ Small
+                                      & placeTypeL . _PBase . baseDiseaseL .~ Latent
   _ <- newPlace $ def (200,200) "Hosio"
   p2 <- newPlace $ def (388,388) "Sangis" & placeTypeL . _PBase . baseOwnerL .~ PlayerOwner Player2
                                           & placeTypeL . _PBase . baseInstallationsL %~ Set.insert Shield

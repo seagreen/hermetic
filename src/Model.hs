@@ -7,7 +7,7 @@ import qualified Data.HashMap.Strict as HM
 import Game.Model hiding (Model)
 import qualified Game.Model
 import Game.Prelude
-import qualified Scenario.Polar
+import qualified Scenario.Crisis
 import qualified Scenario.Tannen
 
 data Model = Model
@@ -54,7 +54,7 @@ init gen screenSize scenario currentPlayer =
       let fillBoard :: State Game.Model.Model ()
           fillBoard = case scenario of
                         Tannen -> Scenario.Tannen.fillBoard
-                        Polar -> Scenario.Polar.fillBoard
+                        Crisis -> Scenario.Crisis.fillBoard
       in execState fillBoard (Game.Model.init gen)
 
     startingSelection :: Selection
@@ -74,7 +74,7 @@ init gen screenSize scenario currentPlayer =
 
 data Scenario
   = Tannen
-  | Polar
+  | Crisis
   deriving stock (Eq, Ord, Show, Enum, Bounded, Generic)
   deriving anyclass (ToJSON, FromJSON)
 

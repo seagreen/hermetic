@@ -91,7 +91,7 @@ configParser =
 scenarioSerializer :: Scenario -> [Char]
 scenarioSerializer = \case
   Tannen -> "tannen"
-  Polar -> "polar"
+  Crisis -> "crisis"
 
 scenarioParser :: [Char] -> Maybe Scenario
 scenarioParser t =
