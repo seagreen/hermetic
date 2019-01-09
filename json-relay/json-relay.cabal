@@ -4,10 +4,11 @@ cabal-version: 1.12
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: e56319437ef6fb6a1f1a53c6307411ee6f342410e6ad35c0e2ce0b814972e6ca
+-- hash: e08cd12c45360c02c10273f30ec056532407311a96378c0700d794597a7ad027
 
 name:           json-relay
 version:        0.0.0
+license:        BSD3
 build-type:     Simple
 
 library

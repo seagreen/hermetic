@@ -4,11 +4,11 @@ cabal-version: 1.12
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: 3269a0c29c968cd59387005295e46e55e104a4c5c736a4f8c83043335af239db
+-- hash: 1c4d495b22075dbc46b14718d91aa3d1615a5f9e6ba43e82c177d010dbcbd081
 
 name:           hermetic
 version:        0.0
-license:        AllRightsReserved
+license:        BSD3
 build-type:     Simple
 
 library

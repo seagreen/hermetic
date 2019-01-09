@@ -104,6 +104,12 @@ Each player also has a UI model: [Model](./src/Model.hs). These will have differ
 
 There's no attempt to make the game resistant to bad actors. If someone wants to cheat they can modify their client to view board info that should be hidden.
 
+# Why no PRs?
+
+I want to have absolutely zero maintenance burden from this, not even the almost zero that comes from quality PRs.
+
+Fork and add your own twist!
+
 # Special thanks
 
 + Mitchell Rosen: for getting multiplayer working in *The Depths*, an earlier game this multiplayer implementation is based off of.

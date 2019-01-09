@@ -1,4 +1,5 @@
 name: json-relay
+license: BSD3
 default-extensions:
 
   # Notable
