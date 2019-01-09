@@ -10,14 +10,32 @@ import Game.Model
 import Game.Prelude
 import Game.Update.Shared
 
--- | Whether diseases get worse or spread is calculated
--- based on the level of disease at the start of the turn.
+-- | __Player guide previous__: 'Game.Update.Travel.shipsEmbark'
 --
--- To ensure this we freeze the places hashmap, and use it to lookup
--- bases to pass into @spreadCheck@. That way @spreadCheck@
--- doesn't use the bases which 'forBasesWithControlStatus' pulls out
--- of the 'State', potentially getting ones that have already had their
--- disease level raised this turn.
+-- The world contains diseases that can damage or destroy bases.
+--
+-- There's a slight chance of a disease outbreak at each base each turn.
+-- When the base will have 'baseDisease' set to 'Latent' and you'll see
+-- an indicator of this.
+--
+-- @Latent@ diseases have a small chance of spreading or getting worse each
+-- turn. If they get worse they become 'Plague's, which have a high chance
+-- of spreading or getting worse each turn.
+--
+-- When @Plague@s get worse they reduce the population at that base by one,
+-- or if it is already at the minimum, have a slight chance of destroying it.
+--
+-- If one player has uncontested ships at a base any disease there is countered
+-- in two ways:
+--
+-- 1. There's a chance of the disease being healed, down to @Latent@ if it was
+-- a @Plague@, and healed entirely if it was @Latent@.
+--
+-- 2. Disease are less likely to spread to the base, or if already there
+-- less likely to get worse. Unlike healing, this effect is stronger the more
+-- ships there are present.
+--
+-- __Next__: 'ShipType'
 diseaseSpread :: State Model ()
 diseaseSpread = do
   frozenPlaces <- use modelPlacesL
@@ -36,6 +54,15 @@ diseaseSpread = do
         PBase base ->
           diseaseAtBase placeId base mController
 
+-- | Whether diseases get worse or spread is calculated
+-- based on the level of disease at the start of the turn.
+--
+-- To ensure this in the function above we freeze the places hashmap,
+-- and use it to lookup bases which are passed into this function.
+--
+-- That way this function doesn't have to pull the bases out of the
+-- of the 'State', potentially getting ones that have already had their
+-- disease level raised this turn.
 diseaseAtBase
   :: PlaceId
   -> Base

@@ -10,9 +10,13 @@ import Game.Model
 import Game.Prelude
 import Game.Update.Shared
 
--- | Ships present unopposed at an opponent's base reduce its shields
--- (if present), population (if not already an 'Outpost'),
--- or destroy it.
+-- | __Player guide previous__: 'Game.Update.Combat.combat'
+--
+-- When ships are present unopposed at an opponent's base, they reduce
+-- its 'basePopulation' by one. If it can't go any lower (it's already
+-- an 'Outpost') the base is destroyed.
+--
+-- __Next__: 'Game.Update.Travel.shipsEmbark'
 bombard :: State Model ()
 bombard =
   forOccupiedBases bombardPlace

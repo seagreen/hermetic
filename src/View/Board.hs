@@ -105,7 +105,7 @@ viewBaseShields radius shields =
     then
       mempty
     else
-      Color shieldColor $ Circle (unRadius radius - 4)
+      Color shieldColor $ ThickCircle (unRadius radius - 5) 2
 
 viewShipsAtBase :: Model -> PlaceId -> [Picture]
 viewShipsAtBase Model{..} id =

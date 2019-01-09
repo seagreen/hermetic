@@ -31,15 +31,24 @@ shipSpeed ship isBoosted =
         Monitor ->
           100
 
+-- | __Player guide previous__: 'Game.Update.Bombard.bombard'
+--
+-- You can only move ships that are at a base. Once a ship has started moving
+-- it can't change course, instead it proceeds to its destination.
+--
+-- You can't see enemy ships in flight (or at bases that aren't either
+-- friendly or have a friendly ship present).
+--
+-- __Next__: 'Game.Update.Disease.diseaseSpread'
+shipsEmbark :: HashMap Player (HashMap ShipId PlaceId) -> State Model ()
+shipsEmbark =
+  hmTraverseWithKey_ playerShipsEmbark
+
 -- | Ships that have been given travel orders switch 'shipLocation'
 -- from 'AtBase' to 'InFlight'.
 --
 -- We avoid the word \"move\" because it can mean different things.
 -- Instead, ships \"embark\" and \"travel\" and players give \"orders\".
-shipsEmbark :: HashMap Player (HashMap ShipId PlaceId) -> State Model ()
-shipsEmbark =
-  hmTraverseWithKey_ playerShipsEmbark
-
 playerShipsEmbark :: Player -> HashMap ShipId PlaceId -> State Model ()
 playerShipsEmbark _ = do
   traverse_ f . hmToList

@@ -70,9 +70,19 @@ data PlaceType
   deriving stock (Eq, Ord, Show, Generic)
   deriving anyclass (ToJSON)
 
--- | Each player starts with at least one base and loses when they don't have any.
+-- | __Player guide starts here__.
 --
--- Provides economic production and defense.
+-- Bases are either owned by you, neutral, or owned by your opponent.
+--
+-- Each player starts with at least one base and wins by destroying all the
+-- opponent's bases.
+--
+-- Friendly bases can build population, installations, and ships.
+-- The higher the population, the faster it builds things.
+--
+-- Ships are used for diplomacy, combat, and fighting disease.
+--
+-- __Next__: 'Game.Update.Diplomacy.diplomacy'
 data Base = Base
   { baseOwner         :: Owner
   , basePopulation    :: Population
@@ -130,9 +140,24 @@ data Disease
   deriving stock (Eq, Ord, Show, Enum, Bounded, Generic)
   deriving anyclass (ToJSON)
 
+-- | __Player guide previous__: 'ShipType'
+--
+-- Base installations give special abilities, see below for details.
+--
+-- __This concludes the player guide__.
 data Installation
   = Shield
+    -- ^ Bases with a shield have their 'baseShields' set to five instead of
+    -- zero.
+    --
+    -- If a base with @baseShields@ is bombarded, its @baseShields@
+    -- is reduced instead of its 'basePopulation'.
+    --
+    -- If a 'Shield' is present, 'baseShields' recharges by one every turn
+    -- the base isn't bombarded (to a max of five).
   | Booster
+    -- ^ Friendly ships leaving a base with a booster travel at x2 speed
+    -- until they reach their destination.
   deriving stock (Eq, Ord, Show, Generic)
   deriving anyclass (ToJSON)
 
@@ -176,16 +201,38 @@ data IsBoosted
   deriving stock (Eq, Ord, Show, Generic)
   deriving anyclass (ToJSON, ToJSONKey)
 
+-- | __Player guide previous__: 'Game.Update.Disease.diseaseSpread'
+--
+-- There are multiple kinds of ships, see below for details.
+--
+-- __Next__: 'Installation'
 data ShipType
   = Corvette
     -- ^ Standard ship.
+    --
+    -- * __Move__: 3
+    -- * __Attack__: 1
+    -- * __Cost__: 5
   | Station
+    -- ^ Defensive ship, so slow it's almost an installation.
+    --
+    -- * __Move__: 1
+    -- * __Attack__: 1
+    -- * __Cost__: 8
+    --
+    -- The first station on each side in a battle has +2 attack,
+    -- the second has +1.
+    --
+    -- The first two stations at a friendly base give +0.1 production.
   | Monitor
-    -- ^ A more expensive, bombardment focused ship.
+    -- ^ A bombardment focused ship.
+    --
+    -- * __Move__: 3
+    -- * __Attack__: 3
+    -- * __Cost__: 15
     --
     -- If bombarding and a 'Shield' installation is present, it's destroyed.
     -- If bombarding and a 'Shield' isn't present, the base is destroyed.
-    -- Also has x3 weapons during combat.
   deriving stock (Eq, Ord, Show, Generic)
   -- Order matters for the derived Ord instance since we use it to
   -- show more important ships in the UI first

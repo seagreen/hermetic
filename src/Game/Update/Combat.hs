@@ -9,7 +9,17 @@ import Game.Model
 import Game.Prelude
 import Game.Update.Shared
 
--- | When both players have ships at the same location they fight.
+-- | __Player guide previous__: 'Game.Update.Diplomacy.diplomacy'
+--
+-- When both players have ships at the same base they fight.
+--
+-- First the number of hits landed this turn is calculated for both sides.
+-- Then they're distributed over the opponent's ships.
+--
+-- The first hit on a ship destroys its shields, the second destroys
+-- the ship itself.
+--
+-- __Next__: 'Game.Update.Bombard.bombard'
 combat :: State Model ()
 combat = do
   bases <- use modelPlacesL

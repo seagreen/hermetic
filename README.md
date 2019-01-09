@@ -1,6 +1,6 @@
 # *Hermetic*
 
-A two player, simulataneous turn desktop strategy game.
+A two player, simultaneous turn desktop strategy game.
 
 <image alt="screenshot" src="./misc/screenshot.png" width="800">
 
@@ -18,21 +18,60 @@ See [docs/install.md](./docs/install.md).
 
 # Design
 
-![mod](./misc/core-modules.svg)
+Core module layout:
+
+![mod](./misc/generated/core-modules.svg)
 
 ## Components
 
-The game is broken up into three parts.
+### Game rules
 
-+ `json-relay`: A local package located at [./json-relay](./json-relay). Starts a server with rooms clients can join. When clients send it messages it relays them to other clients in the room. `json-relay` knows nothing about this specific game.
+![sloc-game](./misc/generated/sloc-game.svg)
 
-+ The game rules: located at [./src/Game](./src/Game). Completely UI-agnostic, could be broken into its own separate package if we wanted.
+Located at [./src/Game](./src/Game). Completely UI-agnostic, could be broken into its own separate package if we wanted. Imports nothing local outside of `Game.*`.
 
-+ The Gloss UI: everything in [./src](./src) except for `./src/Game/*`.
+### Gloss UI
+
+![sloc-ui](./misc/generated/sloc-ui.svg)
+
+Everything in [./src](./src) outside of `./src/Game/*`.
+
+Tracks local state like what base the user has selected. Uses the server to exchange orders with the opponent. When both players have moved uses the game rules to step the game forward.
+
+### Server
+
+![sloc-json-relay](./misc/generated/sloc-json-relay.svg)
+
+A local package located at [./json-relay](./json-relay). Provides an executable server which allows clients to join rooms and relays JSON messages between clients in the same room. Knows nothing about this specific game.
 
 ## MVU
 
 The UI uses a Model/View/Update architecture. The game rules also have a Model and Update, but no View.
+
+This can be summarized with a few type signatures.
+
+Game rules:
+```hs
+data Model = Model
+  { modelPlaces :: HashMap PlaceId Place
+  ...
+  }
+
+Game.Model.Update.update :: HashMap Player Orders -> Game.Model.Model -> Game.Model.Model
+```
+
+Gloss UI:
+```hs
+data Model = Model
+  { modelGame      :: Game.Model.Model
+  , modelSelection :: Selection
+  ...
+  }
+
+View.view :: Model -> Picture
+
+Update.update :: Input -> Model -> Model
+```
 
 In Gloss unlike Elm there's no `Msg` type. That leaves it up to us to figure out how to get the View and Update agreeing on where clickable things are displayed without drowning in duplicate code.
 
@@ -63,7 +102,7 @@ This means `Game.Update.update` must be deterministic. We avoid functions like `
 
 Each player also has a UI model: [Model](./src/Model.hs). These will have different values for each player.
 
-There's no attempt to make the game resistent to bad actors. If someone wants to cheat they can modify their client to view board info that should be hidden.
+There's no attempt to make the game resistant to bad actors. If someone wants to cheat they can modify their client to view board info that should be hidden.
 
 # Special thanks
 

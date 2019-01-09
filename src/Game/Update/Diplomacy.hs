@@ -8,9 +8,16 @@ import Game.Model
 import Game.Prelude
 import Game.Update.Shared
 
--- | When a player's ships are unopposed at a neutral base, that base's
--- friendliness (an argument to 'Neutral') goes up by one. At five the
--- base switches to the player's control.
+-- | __Player guide previous__: 'Base'
+--
+-- Neutral bases keep track of friendliness towards each player,
+-- starting at zero.
+--
+-- Each turn a player's ships are unopposed at a neutral base, that base's
+-- friendliness towards them goes up by one. At five the base switches
+-- to that player's control.
+--
+-- __Next__: 'Game.Update.Combat.combat'
 diplomacy :: State Model ()
 diplomacy =
   forOccupiedBases diplomacyAtPlace

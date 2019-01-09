@@ -6,9 +6,9 @@
 
 3. `stack install`
 
-# Tutorial
+# Single player sandbox
 
-(Really just a single player game against an AI opponent that doesn't move.)
+Play against a computer opponent that doesn't do anything besides end turn:
 
 `hermetic --sandbox`
 
