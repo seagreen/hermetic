@@ -14,13 +14,18 @@ Play against a computer opponent that doesn't do anything besides end turn:
 
 # Multiplayer (using the game server)
 
-On the off chance my server is up you can use it.
+If my server is up you can use it (replace `ROOM_NAME` with your own random string):
+```
+$ hermetic --host relay.ianjeffries.net --room ROOM_NAME
+AddrInfo {addrFlags = [], addrFamily = AF_INET, addrSocketType = Stream, addrProtocol = 6, addrAddress = 178.128.66.50:3000, addrCanonName = Nothing}
+Sending message
+```
 
-First settle on an unlikely `ROOM_NAME` with your opponent. If a third party tries to join the same room while the game is in progress it will crash.
+(If the server is down you'll either get an error or `Sending message` won't show up)
 
-Then each player runs:
+Then your opponent runs the same command and a game window will open on each computer.
 
-`hermetic --host relay.ianjeffries.net --room ROOM_NAME`
+Make sure you settle on an unlikely `ROOM_NAME` with your opponent. If a third party tries to join the same room while the game is in progress it will crash.
 
 # Multiplayer (using your own server)
 
