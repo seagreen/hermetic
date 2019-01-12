@@ -5,6 +5,10 @@ description:
   A two player, simultaneous turn desktop strategy game.
   Homepage [on GitHub](https://github.com/seagreen/hermetic).
 
+
+  If you're looking for a place to start reading I recommend "Game.Model".
+  Data > code.
+
 default-extensions:
 
   # Notable
