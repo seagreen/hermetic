@@ -23,6 +23,7 @@ import Data.Text as X (Text)
 import Debug.Trace as X
 import GHC.Generics as X (Generic)
 import Graphics.Gloss.Interface.IO.Game as X (Point)
+import Numeric.Natural as X (Natural)
 import Prelude as X hiding (fmap, id, init, map, pred, succ)
 import Safe.Foldable as X (maximumByMay, minimumByMay)
 
@@ -33,13 +34,10 @@ import qualified Data.Set as Set
 import qualified Data.Text as T
 import Language.Haskell.TH
 import qualified Numeric
-import qualified Numeric.Natural
 import qualified Prelude
 import qualified Safe
 
-type Nat = Numeric.Natural.Natural
-
-atMostDecimals :: Nat -> Double -> Text
+atMostDecimals :: Natural -> Double -> Text
 atMostDecimals n d =
     T.dropWhileEnd (=='.')
   . T.dropWhileEnd (== '0')
@@ -74,7 +72,7 @@ map :: Functor f => (a -> b) -> f a -> f b
 map =
   Prelude.fmap
 
-mapWithIndex :: (Nat -> a -> b) -> [a] -> [b]
+mapWithIndex :: (Natural -> a -> b) -> [a] -> [b]
 mapWithIndex f =
   zipWith f [0..]
 
@@ -89,11 +87,11 @@ mkLenses =
       lensRules
         & lensField .~ \_ _ name -> [TopName (mkName (nameBase name <> "L"))]
 
-repeatedlyApply :: (a -> a) -> Nat -> a -> a
+repeatedlyApply :: (a -> a) -> Natural -> a -> a
 repeatedlyApply f n a =
   iterate f a !! (fromIntegral n)
 
-repeatedlyApplyM :: forall a m. Monad m => (a -> m a) -> Nat -> a -> m a
+repeatedlyApplyM :: forall a m. Monad m => (a -> m a) -> Natural -> a -> m a
 repeatedlyApplyM f n start =
   foldM g start ns
   where
@@ -151,7 +149,7 @@ distributeHits
      -- @Nothing@ means it cannot (e.g. it was destroyed).
   -> HashMap k a
      -- ^ Targets
-  -> Nat
+  -> Natural
      -- ^ Number of hits
   -> m (HashMap k a, HashMap k a)
      -- ^ The first part of the tuple is destoyed targets, the second is not destroyed.

@@ -304,7 +304,7 @@ hudShips Model{..} hudDimensions mPlaceId ships =
       - (boxHeight hudDimensions / 2) + paginationButtonHeight
 
     -- How many ships the UI has room to show
-    maxShips :: Nat
+    maxShips :: Natural
     maxShips =
       floor $ abs (paginationRowY - shipStartY) / shipHeight
 
@@ -318,7 +318,7 @@ hudShips Model{..} hudDimensions mPlaceId ships =
         Nothing -> mempty
         Just xs -> xs
 
-    page :: Nat
+    page :: Natural
     page =
       case mPlaceId of
         Nothing ->

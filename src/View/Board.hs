@@ -99,7 +99,7 @@ viewBasePhoto Base{..} radius =
     , viewBaseShields radius baseShields
     ]
 
-viewBaseShields :: Radius -> Nat -> Picture
+viewBaseShields :: Radius -> Natural -> Picture
 viewBaseShields radius shields =
   if shields < 1
     then

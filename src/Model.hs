@@ -19,7 +19,7 @@ data Model = Model
   , modelWhoAmI         :: Player
   , modelPan            :: BoardPoint
   , modelZoom           :: Zoom
-  , modelPlaceScroll    :: HashMap PlaceId Nat
+  , modelPlaceScroll    :: HashMap PlaceId Natural
   , modelScreenSize     :: Box
   , modelCursorDot      :: ScreenPoint
   , modelDragToPan      :: Drag

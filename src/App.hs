@@ -38,7 +38,7 @@ import View
 
 data Config = Config
   { configHost :: Text
-  , configPort :: Nat
+  , configPort :: Natural
   , configRoom :: RoomName
   , configScenario :: Scenario
   , configSandbox :: Bool
@@ -129,7 +129,7 @@ data RoomMsg
   deriving stock (Show, Generic)
   deriving anyclass (ToJSON, FromJSON)
 
-runMultiplayer :: Text -> Nat -> RoomName -> Scenario -> IO ()
+runMultiplayer :: Text -> Natural -> RoomName -> Scenario -> IO ()
 runMultiplayer host port room scenario =
   Client.run logTxt host port room (runWithClient scenario)
 

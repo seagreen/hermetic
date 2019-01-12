@@ -13,8 +13,8 @@ data Model = Model
   , modelShips   :: HashMap ShipId Ship
   , modelLog     :: Log
     -- ^ Records what combat occured this turn. Cleared at the start of each turn.
-  , modelTurn    :: Nat
-  , modelNextId  :: Nat
+  , modelTurn    :: Natural
+  , modelNextId  :: Natural
     -- ^ The supply for place and ship ids, which must be unique.
   , modelRandom  :: Gen
   } deriving stock (Generic)
@@ -49,7 +49,7 @@ data Place = Place
 
 -- | Invariant: unique per game.
 newtype PlaceId
-  = PlaceId Nat
+  = PlaceId Natural
   deriving stock (Eq, Ord, Show, Generic)
   deriving newtype (Hashable, ToJSON, ToJSONKey, FromJSON, FromJSONKey)
 
@@ -88,7 +88,7 @@ data Base = Base
   , basePopulation    :: Population
   , baseDisease       :: Disease
   , baseInstallations :: Set Installation
-  , baseShields       :: Nat
+  , baseShields       :: Natural
   , baseBuilding      :: BuildOrder
   , baseInProgress    :: HashMap BuildOrder Double
     -- ^ Tracks progress for each build order. Production only goes towards
@@ -105,7 +105,7 @@ data Base = Base
 -- | Bases are either owned by a player or neutral.
 data Owner
   = PlayerOwner Player
-  | Neutral (HashMap Player Nat)
+  | Neutral (HashMap Player Natural)
     -- ^ The HashMap is the friendliness of the neutral base towards the players.
     -- It starts at 0 for each player.
     --
@@ -183,7 +183,7 @@ data Ship = Ship
 
 -- | Invariant: unique per game.
 newtype ShipId
-  = ShipId Nat
+  = ShipId Natural
   deriving stock (Eq, Ord, Show, Generic)
   deriving newtype (Hashable, ToJSON, ToJSONKey, FromJSON, FromJSONKey)
 

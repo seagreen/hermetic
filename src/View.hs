@@ -165,7 +165,7 @@ viewPlayerName :: Player -> Picture
 viewPlayerName player =
   viewText (playerColor player) (playerName player)
 
-viewTurn :: Nat -> Picture
+viewTurn :: Natural -> Picture
 viewTurn turn =
   viewText white ("Turn: " <> T.pack (show turn) <> " (<SPACEBAR> to end turn)")
 

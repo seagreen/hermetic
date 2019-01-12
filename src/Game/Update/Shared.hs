@@ -8,7 +8,7 @@ import qualified Data.Set as Set
 import Game.Model
 import Game.Prelude
 
-startingShields :: Nat
+startingShields :: Natural
 startingShields =
   5
 
@@ -130,7 +130,7 @@ adjustBase :: PlaceId -> (Base -> Base) -> State Model ()
 adjustBase id f =
   modelPlacesL %= HM.adjust (placeTypeL . _PBase %~ f) id
 
-newId :: State Model Nat
+newId :: State Model Natural
 newId = do
   n <- use modelNextIdL
   modelNextIdL += 1

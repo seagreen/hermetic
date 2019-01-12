@@ -83,11 +83,11 @@ playerShips ships =
       p2 = filter (\(_,s) -> shipPlayer s == Player2) $ HM.toList ships
   in (HM.fromList p1, HM.fromList p2)
 
-numberOfHits :: forall id. HashMap id Ship -> State Model Nat
+numberOfHits :: forall id. HashMap id Ship -> State Model Natural
 numberOfHits firingShips =
   sum <$> traverse f (stationBonus <> HM.elems firingShips)
   where
-    f :: Ship -> State Model Nat
+    f :: Ship -> State Model Natural
     f ship = do
       case shipType ship of
         Corvette -> fire
@@ -98,7 +98,7 @@ numberOfHits firingShips =
           c <- fire
           pure (a + b + c)
 
-    fire :: State Model Nat
+    fire :: State Model Natural
     fire = do
       isHit <- runRandom (probability 0.5)
       pure $ if isHit
