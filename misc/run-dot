@@ -1,3 +1,7 @@
 #!/usr/bin/env sh
 
+# Dependencies:
+#
+# sudo apt install graphviz
+
 dot -Tsvg ./misc/core-modules.dot -o ./misc/generated/core-modules.svg

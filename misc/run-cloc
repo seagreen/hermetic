@@ -1,10 +1,34 @@
 #!/usr/bin/env sh
 
+# Generate badges showing how many lines of code are in different
+# parts of the project.
+
+# Dependencies:
+#
+# sudo npm install -g gh-badges
+# sudo apt install jq
+
+###############################################################################
+# Game rules: ./src/Game/*
+###############################################################################
+
 SLOC1=$(cloc --json ./src/Game/* | jq '.Haskell.code')
 badge sloc "$SLOC1" :blue .svg > ./misc/generated/sloc-game.svg
+#     |    |
+#     |    The value (second part) of the badge.
+#     |
+#     The title (first part) of the badge.
+
+###############################################################################
+# Gloss UI: ./src *minus* game rules
+###############################################################################
 
 SLOC2=$(( $(cloc --json ./src | jq '.Haskell.code') - $SLOC1 ))
 badge sloc "$SLOC2" :blue .svg > ./misc/generated/sloc-ui.svg
+
+###############################################################################
+# json-relay
+###############################################################################
 
 SLOC3=$(cloc --json ./json-relay/src ./json-relay/Main.hs | jq '.Haskell.code')
 badge sloc "$SLOC3" :blue .svg > ./misc/generated/sloc-json-relay.svg
