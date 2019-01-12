@@ -1,14 +1,14 @@
 digraph {
 
-  subgraph cluster_0 {
+  subgraph cluster_1 {
     label="Game rules"
-    color=blue
+    color=red
     "Game.Model" -> "Game.Update"
   }
 
-  subgraph cluster_1 {
+  subgraph cluster_2 {
     label="Gloss UI"
-    color=red
+    color=blue
 
     { rank=n; View } // Show View to the left of Update
 
@@ -20,5 +20,11 @@ digraph {
     Update -> App
     View -> App
     App -> Main
+  }
+
+  subgraph cluster_3 {
+    label="Server"
+    color=green3
+    "JsonRelay.Client" -> "App"
   }
 }
