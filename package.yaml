@@ -1,6 +1,10 @@
 name: hermetic
 license: BSD3
 version: 0.0
+description:
+  A two player, simultaneous turn desktop strategy game.
+  Homepage [on GitHub](https://github.com/seagreen/hermetic).
+
 default-extensions:
 
   # Notable

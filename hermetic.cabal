@@ -4,10 +4,11 @@ cabal-version: 1.12
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: 1db15d731fb3115b2218b10476f3a00daa5e4d41e14ff078eb800c505265e52b
+-- hash: 33975897c03c11dfc6475a0710dbc897181162183c6135f97ace2188f81a216b
 
 name:           hermetic
 version:        0.0
+description:    A two player, simultaneous turn desktop strategy game. Homepage [on GitHub](https://github.com/seagreen/hermetic).
 license:        BSD3
 build-type:     Simple
 
