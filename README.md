@@ -106,7 +106,7 @@ There's no attempt to make the game resistant to bad actors. If someone wants to
 
 # Why no PRs?
 
-I'd like absolutely no maintenance burden from this, not even the almost none that comes from quality PRs.
+For this particular project I wanted the satisfaction of doing the coding myself.
 
 Fork and add your own twist!
 
