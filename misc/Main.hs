@@ -1,8 +1,8 @@
 module Main where
 
-import qualified "hermetic" Main as M
+import qualified Cli
 import Prelude
 
 main :: IO ()
 main =
-  M.main
+  Cli.main

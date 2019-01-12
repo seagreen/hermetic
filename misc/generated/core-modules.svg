@@ -114,15 +114,15 @@
 <path fill="none" stroke="#000000" d="M274,-159.8314C274,-152.131 274,-142.9743 274,-134.4166"/>
 <polygon fill="#000000" stroke="#000000" points="277.5001,-134.4132 274,-124.4133 270.5001,-134.4133 277.5001,-134.4132"/>
 </g>
-<!-- Main -->
+<!-- Cli -->
 <g id="node8" class="node">
-<title>Main</title>
-<ellipse fill="none" stroke="#000000" cx="274" cy="-34" rx="29.795" ry="18"/>
-<text text-anchor="middle" x="274" y="-30.3" font-family="Times,serif" font-size="14.00" fill="#000000">Main</text>
+<title>Cli</title>
+<ellipse fill="none" stroke="#000000" cx="274" cy="-34" rx="27" ry="18"/>
+<text text-anchor="middle" x="274" y="-30.3" font-family="Times,serif" font-size="14.00" fill="#000000">Cli</text>
 </g>
-<!-- App&#45;&gt;Main -->
+<!-- App&#45;&gt;Cli -->
 <g id="edge9" class="edge">
-<title>App&#45;&gt;Main</title>
+<title>App&#45;&gt;Cli</title>
 <path fill="none" stroke="#000000" d="M274,-87.8314C274,-80.131 274,-70.9743 274,-62.4166"/>
 <polygon fill="#000000" stroke="#000000" points="277.5001,-62.4132 274,-52.4133 270.5001,-62.4133 277.5001,-62.4132"/>
 </g>

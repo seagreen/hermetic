@@ -5,13 +5,25 @@
 -- We do this in the @library@ part of the package so readers of the
 -- Haddocks can see the whole program with nothing hidden.
 --
--- However, we can't build exectuables from @library@ functions, so there's
--- also an @executable@ with one module @./misc/Main.hs@, which re-exposes
--- @main@ from here.
-module Main
+-- == Why this module isn't named Main
+--
+-- We can't build executables from library functions, so we need an executable
+-- stanza with its own @Main@ module. This is @.\/misc\/Main.hs@.
+--
+-- The @main-is@ entry in the cabal is only for picking main's filename,
+-- [not its module name](https://github.com/haskell/cabal/pull/5122/files#diff-1470073e9713a98f17cf8ba16ccb6798R1302).
+--
+-- If we name both modules @Main@ and run @stack ghci@, we get this error:
+--
+-- > <no location info>: error:
+-- >     module ‘main:Main’ is defined in multiple files
+--
+-- This we call this module @Cli@ instead of @Main@.
+module Cli
   ( main
   , configParser
   ) where
+
 
 import App (Config(..), app)
 import qualified Data.Map.Strict as Map

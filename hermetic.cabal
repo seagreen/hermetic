@@ -4,7 +4,7 @@ cabal-version: 1.12
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: 1c4d495b22075dbc46b14718d91aa3d1615a5f9e6ba43e82c177d010dbcbd081
+-- hash: 1db15d731fb3115b2218b10476f3a00daa5e4d41e14ff078eb800c505265e52b
 
 name:           hermetic
 version:        0.0
@@ -14,6 +14,7 @@ build-type:     Simple
 library
   exposed-modules:
       App
+      Cli
       Game
       Game.Model
       Game.Outcome
@@ -28,7 +29,6 @@ library
       Game.Update.Travel
       Layout
       Lib.Gloss
-      Main
       Model
       Scenario.Crisis
       Scenario.Tannen

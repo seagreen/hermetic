@@ -1,10 +1,10 @@
 -- | Wrap 'Model.init', 'View.view', and 'Update.update' into a
 -- function @app :: Config -> IO ()@.
 --
--- In Elm this would be the @Main@ module, but Haskell reserves that name
--- for the module containing the executabilizable @main@ function. We're
--- not ready to that yet until we also have code to parse a 'Config'
--- from CLI arguments. That will come one more module downstream.
+-- In Elm this would be the @Main@ module, but Haskell requires that to be
+-- the name of the module containing the runnable @main :: IO a@ function.
+-- We're not ready to that yet until we also have code to parse a 'Config'
+-- from CLI arguments.
 module App
   ( Config(..)
   , app

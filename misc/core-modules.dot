@@ -19,7 +19,7 @@ digraph {
     Layout -> View
     Update -> App
     View -> App
-    App -> Main
+    App -> Cli
   }
 
   subgraph cluster_3 {
