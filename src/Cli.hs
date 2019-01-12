@@ -18,7 +18,7 @@
 -- > <no location info>: error:
 -- >     module ‘main:Main’ is defined in multiple files
 --
--- This we call this module @Cli@ instead of @Main@.
+-- Thus we call this module @Cli@ instead of @Main@.
 module Cli
   ( main
   , configParser
