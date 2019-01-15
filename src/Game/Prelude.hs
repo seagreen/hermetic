@@ -89,7 +89,7 @@ mkLenses =
 
 repeatedlyApply :: (a -> a) -> Natural -> a -> a
 repeatedlyApply f n a =
-  iterate f a !! (fromIntegral n)
+  iterate f a !! fromIntegral n
 
 repeatedlyApplyM :: forall a m. Monad m => (a -> m a) -> Natural -> a -> m a
 repeatedlyApplyM f n start =

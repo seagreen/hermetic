@@ -20,7 +20,7 @@ import Data.Aeson.Encode.Pretty (encodePretty)
 import qualified Data.ByteString as BS
 import qualified Data.ByteString.Lazy as LBS
 import qualified Data.Text as T
-import qualified Data.Text.IO as T
+import qualified Data.Text.IO as TIO
 import qualified Game
 import Game.Prelude
 import Graphics.Gloss.Interface.Environment (getScreenSize)
@@ -205,4 +205,4 @@ createModelLogFile = do
 
 logTxt :: Text -> IO ()
 logTxt =
-  T.hPutStrLn System.IO.stderr
+  TIO.hPutStrLn System.IO.stderr

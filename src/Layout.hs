@@ -206,7 +206,7 @@ hudLayer m@Model{..} hudDimensions =
         PBase base ->
           if hasDetection modelWhoAmI (Just place) (placeShips placeId)
             then
-              Set.fromList $
+              Set.fromList
                 [ ( HudPoint (-95) row1Height
                   , ItemBuildButton placeId (BuildShip Corvette) Clickable button
                   )
