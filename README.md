@@ -52,36 +52,29 @@ This can be summarized with a few type signatures.
 
 Game rules:
 ```hs
-module Game.Model where
-
+-- in Game.Model
 data Model = Model
   { modelPlaces :: HashMap PlaceId Place
   ...
   }
 
-module Game.Update where
-
+-- in Game.Update
 update :: HashMap Player Orders -> Model -> Model
 ```
 
 Gloss UI:
 ```hs
-module Model where
-
-import qualified Game.Model as Game
-
+-- in Model, with Game.Model imported as Game
 data Model = Model
   { modelGame      :: Game.Model
   , modelSelection :: Selection
   ...
   }
 
-module View where
-
+-- in View
 view :: Model -> Picture
 
-module Update where
-
+-- in Update
 update :: Input -> Model -> Model
 ```
 
