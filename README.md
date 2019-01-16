@@ -52,25 +52,37 @@ This can be summarized with a few type signatures.
 
 Game rules:
 ```hs
+module Game.Model where
+
 data Model = Model
   { modelPlaces :: HashMap PlaceId Place
   ...
   }
 
-Game.Model.Update.update :: HashMap Player Orders -> Game.Model.Model -> Game.Model.Model
+module Game.Update where
+
+update :: HashMap Player Orders -> Model -> Model
 ```
 
 Gloss UI:
 ```hs
+module Model where
+
+import qualified Game.Model as Game
+
 data Model = Model
-  { modelGame      :: Game.Model.Model
+  { modelGame      :: Game.Model
   , modelSelection :: Selection
   ...
   }
 
-View.view :: Model -> Picture
+module View where
 
-Update.update :: Input -> Model -> Model
+view :: Model -> Picture
+
+module Update where
+
+update :: Input -> Model -> Model
 ```
 
 In Gloss unlike Elm there's no `Msg` type. That leaves it up to us to figure out how to get the View and Update agreeing on where clickable things are displayed without drowning in duplicate code.
