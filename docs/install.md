@@ -1,3 +1,9 @@
+# Requirements
+
+Linux, unfortunately.
+
+The game worked on previous versions of macOS, but has stopped working on the latest versions. This may have to do with macOS deprecating OpenGL.
+
 # Setup
 
 1. Install [Stack](https://haskellstack.org/).
