@@ -15,6 +15,36 @@ data Input
   | OpponentOrders Player Orders
   | TimePassed Float
 
+-- | __Player guide previous__: 'Base'
+--
+-- Use left click to select, right click to move. In detail, to:
+--
+-- === Select a base
+--
+-- 1. Left click it.
+--
+-- === Change what a friendly base is building
+--
+-- 1. Select it.
+-- 2. Click one of the production options on the right (e.g. @Corvette@).
+--
+-- === Move a single ship
+--
+-- 1. Select the base where it is.
+-- 2. Select the ship by left clicking it from the list on the right.
+-- 3. Right click the destination base.
+--
+-- === Move all the friendly ships at a base
+--
+-- 1. Select the base.
+-- 2. Right click the destination base.
+-- (Note that this doesn't move @Station@s. They're so slow you'll usually
+-- want to leave them behind).
+--
+-- This ends the essential section of the player guide. If you want to learn
+-- the rest by experimentation you can start playing now. If not read on.
+--
+-- __Next__: 'Game.Update.Diplomacy.diplomacy'
 update :: Input -> Model -> Model
 update i m =
   case i of

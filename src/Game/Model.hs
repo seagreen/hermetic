@@ -82,7 +82,7 @@ data PlaceType
 --
 -- Ships are used for diplomacy, combat, and fighting disease.
 --
--- __Next__: 'Game.Update.Diplomacy.diplomacy'
+-- __Next__: 'Update.update'
 data Base = Base
   { baseOwner         :: Owner
   , basePopulation    :: Population
