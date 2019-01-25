@@ -10,7 +10,7 @@
 -- We can't build executables from library functions, so we need an executable
 -- stanza with its own @Main@ module. This is @.\/misc\/Main.hs@.
 --
--- The @main-is@ entry in the cabal is only for picking main's filename,
+-- The @main-is@ entry in the cabal file is only for picking main's filename,
 -- [not its module name](https://github.com/haskell/cabal/pull/5122/files#diff-1470073e9713a98f17cf8ba16ccb6798R1302).
 --
 -- If we name both modules @Main@ and run @stack ghci@, we get this error:
