@@ -71,7 +71,17 @@ viewBase m@Model{..} id base@Base{..} radius =
 
                 PlayerOwner _ ->
                   -- Show production
-                  viewText white ("Production: " <> atMostDecimals 2 (baseProduction shipsAtThisBase base))
+
+                  let prodShips =
+                        if hasDetection modelWhoAmI (Just place) shipsAtThisBase
+                          then
+                            shipsAtThisBase
+                          else
+                            -- Don't show the production bonus of Stations
+                            -- if we can't see them.
+                            mempty
+
+                  in viewText white ("Production: " <> atMostDecimals 2 (baseProduction prodShips base))
 
             , if baseOwner == PlayerOwner modelWhoAmI
                 then viewText white (buildingText modelOrders id base)

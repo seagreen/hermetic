@@ -367,6 +367,7 @@ hasDetection
   -> Maybe Place
      -- ^ Place is a Maybe since we might be in flight.
   -> HashMap ShipId Ship
+     -- ^ The ships at this place.
   -> Bool
 hasDetection player mPlace ships =
   ownsBase || hasShipsThere
