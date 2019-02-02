@@ -35,7 +35,7 @@ updateM orders = do
 
   Combat.combat
 
-  Build.buildOrSwitchBuilding (map ordersBuild orders)
+  Build.build (map ordersBuild orders)
 
   modelTurnL += 1
 

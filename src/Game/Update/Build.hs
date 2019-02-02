@@ -1,7 +1,7 @@
 module Game.Update.Build
   ( baseProduction
   , buildCost
-  , buildOrSwitchBuilding
+  , build
   ) where
 
 import Control.Monad.Trans.State
@@ -57,69 +57,77 @@ buildCost base = \case
       Station -> 8
       Monitor -> 15
 
--- | Bases that have been given a new 'BuildOrder' take a turn to switch.
--- Their progress towards old 'BuildOrder's is still saved.
---
--- Bases that haven't been given a new 'BuildOrder' progress towards what
--- they're currently building. If they complete it and can't build
--- any more of it (e.g. a base that just completed an 'Ecumenopolis')
--- they switch to 'Corvette's.
-buildOrSwitchBuilding :: HashMap Player (HashMap PlaceId BuildOrder) -> State Model ()
-buildOrSwitchBuilding orders = do
+-- | If a base completes what it's currently building and can't build
+-- more of it (e.g. a base that just completed an 'Ecumenopolis')
+-- then it switches to 'Corvette's.
+build :: HashMap Player (HashMap PlaceId BuildOrder) -> State Model ()
+build orders = do
   places <- use modelPlacesL
-  traverse_ (buildAtBase allBuildOrders) (HM.keys places)
+  for_ (HM.keys places) $ \id -> do
+    switch placesToOrders id
+    progress id
+    checkForCompletion id
   where
-    allBuildOrders :: HashMap PlaceId BuildOrder
-    allBuildOrders =
-      fold (HM.elems orders)
+    placesToOrders :: HashMap PlaceId (Player, BuildOrder)
+    placesToOrders =
+      let a1 :: [(Player, HashMap PlaceId BuildOrder)]
+          a1 =
+            HM.toList orders
 
-buildAtBase :: HashMap PlaceId BuildOrder -> PlaceId -> State Model ()
-buildAtBase buildOrders id = do
-  switchOrProgress
-  checkForCompletion id
-  where
-    switchOrProgress :: State Model ()
-    switchOrProgress = do
-      place <- getPlace id <$> use modelPlacesL
-      case placeType place of
-        Ruin ->
+          f :: ( Player
+               , HashMap PlaceId BuildOrder
+               )
+            -> HashMap PlaceId (Player, BuildOrder)
+          f (player, a) =
+            map (\b -> (player, b)) a
+
+          a2 :: [HashMap PlaceId (Player, BuildOrder)]
+          a2 =
+            map f a1
+
+      in
+        fold a2
+
+switch :: HashMap PlaceId (Player, BuildOrder) -> PlaceId -> State Model ()
+switch buildOrders id = do
+  place <- getPlace id <$> use modelPlacesL
+  case placeType place of
+    Ruin ->
+      -- NOTE: The UI should never send us building orders for ruins,
+      -- so maybe a log statement should go here?
+      pure ()
+
+    PBase base ->
+      case HM.lookup id buildOrders of
+        Just (orderingPlayer, newOrder) ->
+          -- NOTE: The UI should never send us building orders from a player
+          -- who doesn't own a base, so maybe a log statement should go here?
+          when (PlayerOwner orderingPlayer == baseOwner base) $
+            adjustBase id (baseBuildingL .~ newOrder)
+
+        Nothing ->
           pure ()
 
-        PBase base ->
-          case mBuildOrderChange base of
-            Just newOrder ->
-              switchWhatsBeingBuilt newOrder
+progress :: PlaceId -> State Model ()
+progress id = do
+  place <- getPlace id <$> use modelPlacesL
+  case placeType place of
+    Ruin ->
+      pure ()
 
-            Nothing ->
-              progress
-      where
-        mBuildOrderChange :: Base -> Maybe BuildOrder
-        mBuildOrderChange base = do
-          buildOrder <- HM.lookup id buildOrders
-          guard (buildOrder /= baseBuilding base)
-          pure buildOrder
+    PBase base -> do
+      ships <- shipsAtPlace id <$> use modelShipsL
+      let amount :: Double
+          amount =
+            case baseOwner base of
+              Neutral _ ->
+                0.1
 
-        switchWhatsBeingBuilt :: BuildOrder -> State Model ()
-        switchWhatsBeingBuilt newOrder =
-          adjustBase id (baseBuildingL .~ newOrder)
-
-        progress :: State Model ()
-        progress = do
-          ships <- shipsAtPlace id <$> use modelShipsL
-          adjustBase id (addProduction ships)
-
-addProduction :: HashMap ShipId Ship -> Base -> Base
-addProduction shipsAtThisBase base@Base{..} =
-  base & baseInProgressL %~ HM.insertWith (+) baseBuilding amount
-  where
-    amount :: Double
-    amount =
-      case baseOwner of
-        Neutral _ ->
-          0.1
-
-        PlayerOwner _ ->
-          baseProduction shipsAtThisBase base
+              PlayerOwner _ ->
+                baseProduction ships base
+      adjustBase
+        id
+        (baseInProgressL %~ HM.insertWith (+) (baseBuilding base) amount)
 
 checkForCompletion :: PlaceId -> State Model ()
 checkForCompletion id = do
@@ -151,10 +159,7 @@ checkForCompletion id = do
           modelPlacesL %= HM.adjust incrementPop id
           newPlace <- getPlace id <$> use modelPlacesL
           when (not (canExpand newPlace)) $
-            -- NOTE: This gives a free switch to building ships,
-            -- do we want that?
-            --
-            -- it also switches neutrals to building ships, so they'll seesaw
+            -- NOTE: This switches neutrals to building ships, so they'll seesaw
             -- because neutrals can't actually complete ships.
             adjustBase id (baseBuildingL .~ BuildShip Corvette)
 
