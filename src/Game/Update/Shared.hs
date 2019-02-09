@@ -206,7 +206,7 @@ shipsInFlight =
       case shipLocation ship of
         InFlight point dest _ -> Just (ship, point, dest)
         Destroyed -> Nothing
-        AtBase _ -> Nothing
+        AtPlace _ -> Nothing
 
 shipsAtPlace :: PlaceId -> HashMap ShipId Ship -> HashMap ShipId Ship
 shipsAtPlace placeId =
@@ -217,6 +217,6 @@ shipsAtPlace placeId =
       loc <- case shipLocation ship of
                InFlight{} -> Nothing
                Destroyed -> Nothing
-               AtBase a -> Just a
+               AtPlace a -> Just a
       guard (loc == placeId)
       pure ship

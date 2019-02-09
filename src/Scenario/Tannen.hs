@@ -40,22 +40,22 @@ fillBoard = do
 
   -- For testing pagination:
 
-  -- _ <- newShip $ defShip Player1 (AtBase tannen)
-  -- _ <- newShip $ defShip Player1 (AtBase tannen)
-  -- _ <- newShip $ defShip Player1 (AtBase tannen)
-  -- _ <- newShip $ defShip Player1 (AtBase tannen) & shipShieldsL .~ False
-  -- _ <- newShip $ defShip Player1 (AtBase tannen)
-  -- _ <- newShip $ defShip Player1 (AtBase tannen)
-  -- _ <- newShip $ defShip Player1 (AtBase tannen) & shipTypeL .~ Monitor
-  -- _ <- newShip $ defShip Player1 (AtBase tannen) & shipTypeL .~ Station
-  -- _ <- newShip $ defShip Player1 (AtBase tannen)
-  -- _ <- newShip $ defShip Player1 (AtBase tannen)
-  -- _ <- newShip $ defShip Player1 (AtBase tannen) & shipShieldsL .~ False
-  -- _ <- newShip $ defShip Player1 (AtBase tannen)
-  -- _ <- newShip $ defShip Player1 (AtBase tannen)
-  -- _ <- newShip $ defShip Player2 (AtBase tannen) & shipTypeL .~ Monitor
-  -- _ <- newShip $ defShip Player2 (AtBase tannen) & shipTypeL .~ Station
-  -- _ <- newShip $ defShip Player2 (AtBase tannen)
+  -- _ <- newShip $ defShip Player1 (AtPlace tannen)
+  -- _ <- newShip $ defShip Player1 (AtPlace tannen)
+  -- _ <- newShip $ defShip Player1 (AtPlace tannen)
+  -- _ <- newShip $ defShip Player1 (AtPlace tannen) & shipShieldsL .~ False
+  -- _ <- newShip $ defShip Player1 (AtPlace tannen)
+  -- _ <- newShip $ defShip Player1 (AtPlace tannen)
+  -- _ <- newShip $ defShip Player1 (AtPlace tannen) & shipTypeL .~ Monitor
+  -- _ <- newShip $ defShip Player1 (AtPlace tannen) & shipTypeL .~ Station
+  -- _ <- newShip $ defShip Player1 (AtPlace tannen)
+  -- _ <- newShip $ defShip Player1 (AtPlace tannen)
+  -- _ <- newShip $ defShip Player1 (AtPlace tannen) & shipShieldsL .~ False
+  -- _ <- newShip $ defShip Player1 (AtPlace tannen)
+  -- _ <- newShip $ defShip Player1 (AtPlace tannen)
+  -- _ <- newShip $ defShip Player2 (AtPlace tannen) & shipTypeL .~ Monitor
+  -- _ <- newShip $ defShip Player2 (AtPlace tannen) & shipTypeL .~ Station
+  -- _ <- newShip $ defShip Player2 (AtPlace tannen)
 
   pure ()
   where

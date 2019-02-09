@@ -39,7 +39,7 @@ viewRuin m id radius =
     , focusCircle m id radius
     , translateBelowBase radius $ verticalConcatText $
           viewText white "Ruin"
-        : viewShipsAtBase m id
+        : viewShipsAtPlace m id
     ]
 
 ruinPicture :: Picture
@@ -91,7 +91,7 @@ viewBase m@Model{..} id base@Base{..} radius =
                                                  <> "/" <> T.pack (show startingShields)
                 else mempty
             ]
-          <> viewShipsAtBase m id
+          <> viewShipsAtPlace m id
           )
     , viewDisease modelTick baseDisease
     ]
@@ -117,8 +117,8 @@ viewBaseShields radius shields =
     else
       Color shieldColor $ ThickCircle (unRadius radius - 4) 2
 
-viewShipsAtBase :: Model -> PlaceId -> [Picture]
-viewShipsAtBase Model{..} id =
+viewShipsAtPlace :: Model -> PlaceId -> [Picture]
+viewShipsAtPlace Model{..} id =
   if hasDetection modelWhoAmI (Just place) ships
     then
       viewPlayerShips <$> Set.toList enumerateAll
@@ -266,7 +266,7 @@ viewShipInFlight Model{..} id loc _
     isBoosted :: IsBoosted
     (destPoint, isBoosted) =
       case shipLocation ship of
-        AtBase _ ->
+        AtPlace _ ->
           error "ship should be in flight"
 
         Destroyed ->

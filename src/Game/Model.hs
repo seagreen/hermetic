@@ -188,7 +188,7 @@ newtype ShipId
   deriving newtype (Hashable, ToJSON, ToJSONKey, FromJSON, FromJSONKey)
 
 data ShipLocation
-  = AtBase PlaceId
+  = AtPlace PlaceId
   | InFlight Point PlaceId IsBoosted
     -- ^ Currently at Point, flying to PlaceId
   | Destroyed

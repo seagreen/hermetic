@@ -169,7 +169,7 @@ checkForCompletion id = do
               adjustBase id (baseBuildingL .~ BuildPopulation)
 
             PlayerOwner player ->
-              void $ newShip (Ship player (AtBase id) shipType True)
+              void $ newShip (Ship player (AtPlace id) shipType True)
 
         BuildShield -> do
           adjustBase id ( (baseInstallationsL %~ Set.insert Shield)
