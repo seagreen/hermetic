@@ -30,6 +30,13 @@ fillBoard = do
 
   _ <- newPlace $ def (-1500,0) "Terminal" & placeSizeL .~ Small
 
+  -- Each player gets a ship at their base:
+
+  _ <- newShip $ defShip Player1 (AtPlace tannen)
+  _ <- newShip $ defShip Player2 (AtPlace renga)
+
+  -- And one in flight towards their base:
+
   _ <- newShip $ defShip Player1 (InFlight (0,0) tannen NotBoosted)
   _ <- newShip $ defShip Player2 (InFlight (0,0) renga NotBoosted)
 
