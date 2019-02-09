@@ -28,7 +28,10 @@ fillBoard = do
   _ <- newPlace $ def (282,-282) "Narkaus" & placeSizeL .~ Large
 
   _ <- newShip $ defShip Player1 (AtBase p1)
+  _ <- newShip $ defShip Player1 (AtBase p1)
   _ <- newShip $ defShip Player2 (AtBase p2)
+  _ <- newShip $ defShip Player2 (AtBase p2)
+
 
   pure ()
   where
