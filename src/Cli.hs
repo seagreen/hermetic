@@ -24,7 +24,6 @@ module Cli
   , configParser
   ) where
 
-
 import App (Config(..), app)
 import qualified Data.Map.Strict as Map
 import qualified Data.Text as T
