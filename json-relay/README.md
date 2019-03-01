@@ -1,18 +1,18 @@
 # Summary
 
-A server with rooms. Relays each message from a client to the others in the same room. Upstream of Hermetic and has no game-specific code.
+A server with rooms.
 
-This is a quick-and-dirty project, it's not up to the coding/documentation standards of the main game.
+Just a quick-and-dirty project, but you may be interested in the deployment notes below.
 
 # Deployment
 
 ## Goals
 
-+ Run the `json-relay` server in the cloud with as little work as possible.
++ Run the `json-relay` executable in the cloud with as little work as possible.
 
 + Build it locally because I don't want to pay for a server with enough RAM to compile it.
 
-+ For it to work the server with no linking issues.
++ Avoid any linker issues
 
 ## Solution
 
@@ -24,7 +24,13 @@ Use `scp` to get the Docker container to Digital Ocean, this lets us avoid Docke
 
 ### Digital Ocean
 
-Create a Droplet via "Create > One-click apps > Docker".
+Create a Droplet via "Create > Droplets":
+
+![do1](./misc/create.png)
+
+ And then "One-click apps > Docker":
+
+![do2](./misc/one-click-apps.png)
 
 ### Stack
 
@@ -38,15 +44,18 @@ image:
 
 ## Deploy
 
-First make a container and copy it to the server.
-
-This is the `./deploy` script. Replace `ianjeffries` with your Docker username.
-
-It relies on `./docker-compose.yaml` in this directory, which uses [this](https://hub.docker.com/r/fpco/pid1/) Docker image.
+Make a container:
 
 ```sh
 stack image container
 docker save json-relay > /tmp/json-relay.tar
+```
+
+This uses `./docker-compose.yaml`, which in turn uses [this](https://hub.docker.com/r/fpco/pid1/) Docker image.
+
+Next copy it to the server, replacing `ianjeffries` with your Docker username:
+
+```
 scp ./docker-compose.yaml root@relay.ianjeffries.net:/root
 scp /tmp/json-relay.tar root@relay.ianjeffries.net:/root
 ```

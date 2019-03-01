@@ -20,7 +20,7 @@ See [docs/install.md](./docs/install.md).
 
 Core module layout:
 
-![mod](./misc/generated/core-modules.svg)
+![modules](./misc/generated/core-modules.svg)
 
 ## Components
 
