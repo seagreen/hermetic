@@ -1,0 +1,6 @@
+#!/bin/sh
+
+# this also creates the "deps" directory"
+
+cd ..
+stack ls dependencies | tr " " - | xargs -i stack unpack {} --to explore/deps

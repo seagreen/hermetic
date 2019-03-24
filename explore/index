@@ -1,0 +1,21 @@
+#!/bin/sh
+
+startdir=$(pwd)
+
+cd ..
+stack build --fast
+haskell-code-indexer-8.6.3 --package .
+cd "$startdir"
+
+cd ../json-relay
+stack build --fast
+haskell-code-indexer-8.6.3 --package .
+cd "$startdir"
+
+for p in deps/*
+do (
+  cd "$p"
+  cp ../../stack.yaml .
+  stack build --fast
+  haskell-code-indexer-8.6.3 --package .
+) done

@@ -1,0 +1,3 @@
+#!/bin/sh
+
+haskell-code-server --package .. --package ../json-relay --packages deps
