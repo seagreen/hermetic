@@ -132,7 +132,7 @@ perhapsClearSelection = do
           when (shipPlayer ship /= currentPlayer) $
             modelSelectionL .= SelectionNone
 
-        AtBase _ ->
+        AtPlace _ ->
           pure ()
 
 --------------------------------------------------------------------------------
@@ -470,7 +470,7 @@ interpretMouseMsg m@Model{..} screenPoint button = do
                 Destroyed ->
                   Nothing
 
-                AtBase departureId ->
+                AtPlace departureId ->
                   Just (ShipsEmbark (Set.singleton shipId) departureId chosenId)
 
         _ ->

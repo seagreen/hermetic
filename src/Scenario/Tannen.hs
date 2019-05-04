@@ -30,6 +30,13 @@ fillBoard = do
 
   _ <- newPlace $ def (-1500,0) "Terminal" & placeSizeL .~ Small
 
+  -- Each player gets a ship at their base:
+
+  _ <- newShip $ defShip Player1 (AtPlace tannen)
+  _ <- newShip $ defShip Player2 (AtPlace renga)
+
+  -- And one in flight towards their base:
+
   _ <- newShip $ defShip Player1 (InFlight (0,0) tannen NotBoosted)
   _ <- newShip $ defShip Player2 (InFlight (0,0) renga NotBoosted)
 
@@ -40,22 +47,22 @@ fillBoard = do
 
   -- For testing pagination:
 
-  -- _ <- newShip $ defShip Player1 (AtBase tannen)
-  -- _ <- newShip $ defShip Player1 (AtBase tannen)
-  -- _ <- newShip $ defShip Player1 (AtBase tannen)
-  -- _ <- newShip $ defShip Player1 (AtBase tannen) & shipShieldsL .~ False
-  -- _ <- newShip $ defShip Player1 (AtBase tannen)
-  -- _ <- newShip $ defShip Player1 (AtBase tannen)
-  -- _ <- newShip $ defShip Player1 (AtBase tannen) & shipTypeL .~ Monitor
-  -- _ <- newShip $ defShip Player1 (AtBase tannen) & shipTypeL .~ Station
-  -- _ <- newShip $ defShip Player1 (AtBase tannen)
-  -- _ <- newShip $ defShip Player1 (AtBase tannen)
-  -- _ <- newShip $ defShip Player1 (AtBase tannen) & shipShieldsL .~ False
-  -- _ <- newShip $ defShip Player1 (AtBase tannen)
-  -- _ <- newShip $ defShip Player1 (AtBase tannen)
-  -- _ <- newShip $ defShip Player2 (AtBase tannen) & shipTypeL .~ Monitor
-  -- _ <- newShip $ defShip Player2 (AtBase tannen) & shipTypeL .~ Station
-  -- _ <- newShip $ defShip Player2 (AtBase tannen)
+  -- _ <- newShip $ defShip Player1 (AtPlace tannen)
+  -- _ <- newShip $ defShip Player1 (AtPlace tannen)
+  -- _ <- newShip $ defShip Player1 (AtPlace tannen)
+  -- _ <- newShip $ defShip Player1 (AtPlace tannen) & shipShieldsL .~ False
+  -- _ <- newShip $ defShip Player1 (AtPlace tannen)
+  -- _ <- newShip $ defShip Player1 (AtPlace tannen)
+  -- _ <- newShip $ defShip Player1 (AtPlace tannen) & shipTypeL .~ Monitor
+  -- _ <- newShip $ defShip Player1 (AtPlace tannen) & shipTypeL .~ Station
+  -- _ <- newShip $ defShip Player1 (AtPlace tannen)
+  -- _ <- newShip $ defShip Player1 (AtPlace tannen)
+  -- _ <- newShip $ defShip Player1 (AtPlace tannen) & shipShieldsL .~ False
+  -- _ <- newShip $ defShip Player1 (AtPlace tannen)
+  -- _ <- newShip $ defShip Player1 (AtPlace tannen)
+  -- _ <- newShip $ defShip Player2 (AtPlace tannen) & shipTypeL .~ Monitor
+  -- _ <- newShip $ defShip Player2 (AtPlace tannen) & shipTypeL .~ Station
+  -- _ <- newShip $ defShip Player2 (AtPlace tannen)
 
   pure ()
   where

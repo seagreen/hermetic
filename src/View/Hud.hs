@@ -102,7 +102,7 @@ viewHudShip Model{..} shipId (Box width height) =
               Destroyed ->
                 False
 
-              AtBase placeId ->
+              AtPlace placeId ->
                 SelectionPlace placeId == modelSelection
                   && shipPlayer ship == modelWhoAmI
                   -- Station's don't all move along with other ships
@@ -123,7 +123,7 @@ viewHudShip Model{..} shipId (Box width height) =
         InFlight _ dest _ ->
           showDest dest
 
-        AtBase _ ->
+        AtPlace _ ->
           case HM.lookup shipId (ordersEmbark modelOrders) of
             Nothing ->
               mempty

@@ -12,8 +12,7 @@ import Game.Model
 import Game.Update
 
 import Game.Outcome as X
-import Game.Update.Bombard as X
-import Game.Update.Build as X
+import Game.Update.Build as X hiding (build)
 import Game.Update.Combat as X
 import Game.Update.Diplomacy as X
 import Game.Update.Disease as X

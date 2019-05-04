@@ -38,21 +38,23 @@ import Game.Update.Shared
 -- __Next__: 'ShipType'
 diseaseSpread :: State Model ()
 diseaseSpread = do
+  turn <- use modelTurnL
   frozenPlaces <- use modelPlacesL
-  forBasesWithControlStatus (f frozenPlaces)
+  forBasesWithControlStatus (f turn frozenPlaces)
   where
-    f :: HashMap PlaceId Place
+    f :: Natural
+      -> HashMap PlaceId Place
       -> PlaceId
       -> Base
       -> Maybe (Player, HashMap ShipId Ship)
       -> State Model ()
-    f frozenPlaces placeId _ mController =
+    f turn frozenPlaces placeId _ mController =
       case placeType (getPlace placeId frozenPlaces) of
         Ruin ->
           pure ()
 
         PBase base ->
-          diseaseAtBase placeId base mController
+          diseaseAtBase turn placeId base mController
 
 -- | Whether diseases get worse or spread is calculated
 -- based on the level of disease at the start of the turn.
@@ -64,14 +66,15 @@ diseaseSpread = do
 -- of the 'State', potentially getting ones that have already had their
 -- disease level raised this turn.
 diseaseAtBase
-  :: PlaceId
+  :: Natural
+  -> PlaceId
   -> Base
   -> Maybe (Player, HashMap ShipId Ship)
   -> State Model ()
-diseaseAtBase placeId base mController = do
+diseaseAtBase turn placeId base mController = do
   case baseDisease base of
     Healthy ->
-      runDeNovo
+      when (turn >= 10) runDeNovo
 
     Latent -> do
       runSpread (shipModifier 0.05)

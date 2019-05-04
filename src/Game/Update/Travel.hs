@@ -45,7 +45,7 @@ shipsEmbark =
   hmTraverseWithKey_ playerShipsEmbark
 
 -- | Ships that have been given travel orders switch 'shipLocation'
--- from 'AtBase' to 'InFlight'.
+-- from 'AtPlace' to 'InFlight'.
 --
 -- We avoid the word \"move\" because it can mean different things.
 -- Instead, ships \"embark\" and \"travel\" and players give \"orders\".
@@ -63,7 +63,7 @@ playerShipsEmbark _ = do
         Destroyed ->
           pure ()
 
-        AtBase placeId -> do
+        AtPlace placeId -> do
           place <- getPlace placeId <$> use modelPlacesL
           let isBoosted =
                 case placeType place of
@@ -91,7 +91,7 @@ shipsTravel = do
     travel :: ShipId -> Ship -> State Model ()
     travel shipId ship = do
       case shipLocation ship of
-        AtBase _ -> pure ()
+        AtPlace _ -> pure ()
         Destroyed -> pure ()
         InFlight loc destId isBoosted -> do
           dest <- getPlace destId <$> use modelPlacesL
@@ -108,7 +108,7 @@ shipsTravel = do
             newLoc =
               if distance loc destPoint <= speed
                 then
-                  AtBase destId
+                  AtPlace destId
                 else
                   InFlight (travelTowards loc destPoint speed) destId isBoosted
 

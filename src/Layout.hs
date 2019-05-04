@@ -172,7 +172,7 @@ hudLayer m@Model{..} hudDimensions =
                           distance p point < flightGroupRadius
                             && shipPlayer s == shipPlayer ship
 
-                        AtBase _ -> False
+                        AtPlace _ -> False
 
                         Destroyed -> False)
           in hudButtonsAndShips Nothing nearbyShips
@@ -180,7 +180,7 @@ hudLayer m@Model{..} hudDimensions =
         Destroyed ->
           error "don't allow destroyed ships to be selected"
 
-        AtBase placeId -> do
+        AtPlace placeId -> do
           hudButtonsAndShips (Just placeId) (placeShips placeId)
   where
     -- If a ship in flight is selected, the HUD also shows other ships
@@ -367,6 +367,7 @@ hasDetection
   -> Maybe Place
      -- ^ Place is a Maybe since we might be in flight.
   -> HashMap ShipId Ship
+     -- ^ The ships at this place.
   -> Bool
 hasDetection player mPlace ships =
   ownsBase || hasShipsThere
@@ -416,7 +417,7 @@ focusedBase Model{..} =
         Destroyed ->
           Nothing
 
-        AtBase placeId ->
+        AtPlace placeId ->
           Just placeId
 
 flightLayer :: Model -> Set (Point, BoardItem)
