@@ -1,6 +1,4 @@
--- | Internal (this is all executable code exposed for the curious).
---
--- Bounces JSON messages between clients.
+-- | Server that bounces JSON messages between clients.
 --
 -- Clients send 'Message's.
 --
@@ -18,24 +16,25 @@ import Control.Exception.Safe (bracket)
 import Control.Monad
 import Data.Aeson
 import Data.ByteString (ByteString)
-import qualified Data.ByteString as BS
-import qualified Data.ByteString.Lazy as LBS
 import Data.Text (Text)
-import qualified Data.Text as T
-import qualified Data.Text.IO as T
 import JsonRelay.Shared
   (Message(..), MessagePart(..), RoomName(..), endOfMessage, getOneAddrInfo,
   maxBytes, splitMessages)
 import Network.Socket
   (AddrInfo(..), AddrInfoFlag(..), SockAddr(..), Socket(..), SocketOption(..),
   SocketType(..))
-import qualified Network.Socket as Socket
-import qualified Network.Socket.ByteString as NetworkBts
 import Numeric.Natural
 import Prelude hiding (log)
+import System.IO.Error (ioError, userError)
+
+import qualified Data.ByteString as BS
+import qualified Data.ByteString.Lazy as LBS
+import qualified Data.Text as T
+import qualified Data.Text.IO as T
+import qualified Network.Socket as Socket
+import qualified Network.Socket.ByteString as NetworkBts
 import qualified Streaming.Prelude as S
 import qualified System.IO
-import System.IO.Error (ioError, userError)
 
 data Config = Config
   { configPort :: Natural

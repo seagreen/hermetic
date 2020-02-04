@@ -1,3 +1,6 @@
+-- | A library for connecting to the server.
+--
+-- Used by @hermetic@ but not the @json-relay@ executable.
 module JsonRelay.Client
   ( RoomName(..)
   , Client(..)
@@ -9,18 +12,19 @@ import Control.Concurrent.STM
 import Control.Exception.Safe (bracket)
 import Data.Aeson
 import Data.ByteString (ByteString)
-import qualified Data.ByteString as BS
-import qualified Data.ByteString.Lazy as LBS
 import Data.Text (Text)
-import qualified Data.Text as T
 import JsonRelay.Shared
   (Message(..), MessagePart(..), RoomName(..), endOfMessage, getOneAddrInfo,
   maxBytes, splitMessages)
 import Network.Socket (AddrInfo(..), SockAddr(..), Socket(..), SocketType(..))
-import qualified Network.Socket as Socket
-import qualified Network.Socket.ByteString as NetworkBts
 import Numeric.Natural
 import Prelude hiding (log)
+
+import qualified Data.ByteString as BS
+import qualified Data.ByteString.Lazy as LBS
+import qualified Data.Text as T
+import qualified Network.Socket as Socket
+import qualified Network.Socket.ByteString as NetworkBts
 import qualified Streaming.Prelude as S
 
 data Client = Client

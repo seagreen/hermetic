@@ -3,12 +3,13 @@ module JsonRelay.Shared where
 
 import Data.Aeson
 import Data.ByteString (ByteString)
-import qualified Data.ByteString as BS
 import Data.Text (Text)
 import Data.Word
 import Network.Socket (AddrInfo(..), SockAddr(..), getAddrInfo)
 import Prelude
 import Streaming
+
+import qualified Data.ByteString as BS
 import qualified Streaming.Prelude as S
 
 -- | An invalid UTF-8 byte, used to signal the end of a 'Message'.
