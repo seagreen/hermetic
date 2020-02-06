@@ -1,5 +1,0 @@
-json-relay:
-  container_name: "json-relay-container"
-  image: "json-relay"
-  command: "/sbin/pid1 /usr/local/bin/json-relay"
-  ports: ["3000:3000"]

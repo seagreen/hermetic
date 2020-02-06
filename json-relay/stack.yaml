@@ -1,4 +1,1 @@
 resolver: lts-13.0
-image:
-  containers:
-    - base: "fpco/pid1"
